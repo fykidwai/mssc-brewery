@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import guru.springframework.msscbrewery.web.model.BeerDto;
@@ -31,7 +34,7 @@ public class BeerController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> saveBeer(final BeerDto beerDto) {
+	public ResponseEntity<Object> saveBeer(@RequestBody final BeerDto beerDto) {
 		final var beerDto2 = beerService.saveBeer(beerDto);
 		final var httpHeaders = new HttpHeaders();
 		httpHeaders.add("Location", "/api/v1/beer/" + beerDto2.getId());
@@ -39,9 +42,16 @@ public class BeerController {
 	}
 
 	@PutMapping("/{beerId}")
-	public ResponseEntity<Object> updateBeer(@PathVariable("beerId") final UUID beerId, final BeerDto beerDto) {
+	public ResponseEntity<Object> updateBeer(@PathVariable("beerId") final UUID beerId,
+			@RequestBody final BeerDto beerDto) {
 		beerService.updateBeer(beerId, beerDto);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@DeleteMapping("/{beerId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteBeer(@PathVariable("beerId") final UUID beerId) {
+		beerService.deleteById(beerId);
 	}
 
 }
