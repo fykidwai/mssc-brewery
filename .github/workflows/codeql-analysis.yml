@@ -76,7 +76,9 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
     - name: Build and analyze
+      working-directory: ./mssc-brewery
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      
