@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,5 +68,14 @@ public class BeerControllerV2 {
         final var error = exception.getConstraintViolations().stream()
             .map(cv -> cv.getPropertyPath() + " : " + cv.getMessage()).collect(Collectors.toList());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List<String>> validationErrorHandler(final MethodArgumentNotValidException e) {
+        final var errors = e.getBindingResult().getAllErrors().stream().map(FieldError.class::cast)
+            .map(fieldError -> String.format("Bad Request %s : %s : Rejected value : ---> %s", fieldError.getField(),
+                fieldError.getDefaultMessage(), fieldError.getRejectedValue()))
+            .collect(Collectors.toList());
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
