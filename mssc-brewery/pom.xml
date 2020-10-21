@@ -17,7 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<sonar.projectKey>fykidwai_mssc-brewery-client</sonar.projectKey>
+		<sonar.projectKey>fykidwai_mssc-brewery1</sonar.projectKey>
 		<sonar.organization>fykidwai</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
