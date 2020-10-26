@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import guru.springframework.msscbrewery.web.model.v2.BeerDtoV2;
 import guru.springframework.msscbrewery.web.service.v2.BeerServiceV2;
+import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/api/v2/beer")
 @RestController
+@RequiredArgsConstructor
 public class BeerControllerV2 {
 
     private final BeerServiceV2 beerService;
-
-    public BeerControllerV2(@Autowired final BeerServiceV2 beerService) {
-        this.beerService = beerService;
-    }
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDtoV2> getBeer(@PathVariable("beerId") final UUID beerId) {
