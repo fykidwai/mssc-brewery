@@ -14,15 +14,16 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mssc-brewery</name>
 	<description>SFG Brewery</description>
-	<developers>
-		<developer>
-			<name>Faiz Kidwai</name>
-			<email>f.y.kidwai@gmail.com</email>
-		</developer>
-	</developers>
+	<url>https://github.com/fykidwai/mssc-brewery</url>
 	<scm>
 		<url>https://github.com/fykidwai/mssc-brewery</url>
+		<connection>scm:git:git://github.com/fykidwai/mssc-brewery.git</connection>
+		<developerConnection>scm:git:git@github.com:fykidwai/mssc-brewery.git</developerConnection>
 	</scm>
+	<issueManagement>
+		<url>https://github.com/fykidwai/mssc-brewery/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 	<properties>
 		<java.version>11</java.version>
 		<sonar.projectKey>fykidwai_mssc-brewery</sonar.projectKey>
